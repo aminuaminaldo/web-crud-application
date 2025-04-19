@@ -1,13 +1,15 @@
-import { useState } from "react";
+import React from "react";
 import "./App.css";
-import Navbar from "./components/Navbar";
-import Tablelist from "./components/Tablelist";
+import NavBar from "./components/Navbar";
+import TableList from "./components/TableList";
+import ModalForm from "./components/ModalForm";
 
 function App() {
   return (
     <>
-      <Navbar />
-      <Tablelist />
+      <NavBar />
+      <TableList />
+      <ModalForm />
     </>
   );
 }
