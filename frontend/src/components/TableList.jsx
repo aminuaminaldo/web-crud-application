@@ -1,6 +1,6 @@
 import React from "react";
 
-const TableList = () => {
+const TableList = ({ onUpdate, onDelete }) => {
   const clients = [
     {
       id: 1,
@@ -77,13 +77,15 @@ const TableList = () => {
               </td>
               <td className="space-x-2">
                 <button
-                  onClick={() => handleUpdate(client.id)}
+                  // onClick={() => handleUpdate(client.id)}
+                  onClick={() => onUpdate(client.id)}
                   className="btn btn-sm btn-info"
                 >
                   Update
                 </button>
                 <button
-                  onClick={() => handleDelete(client.id)}
+                  // onClick={() => handleDelete(client.id)}
+                  onClick={() => onDelete(client.id)}
                   className="btn btn-sm btn-error"
                 >
                   Delete

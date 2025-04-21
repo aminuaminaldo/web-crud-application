@@ -1,6 +1,6 @@
 import React from "react";
 
-const NavBar = () => {
+const NavBar = ({ onOpen }) => {
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -14,7 +14,9 @@ const NavBar = () => {
         />
       </div>
       <div className="navbar-end flex gap-2">
-        <a className="btn btn-primary">Button</a>
+        <a className="btn btn-primary" onClick={onOpen}>
+          Add Client
+        </a>
       </div>
     </div>
   );
