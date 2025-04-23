@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import "./App.css";
 import NavBar from "./components/Navbar";
-import TableList from "./components/TableList";
 import ModalForm from "./components/ModalForm";
+import TableList from "./components/Tablelist";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
