@@ -1,4 +1,4 @@
-import * as clientServices from "../services/clientServices";
+import * as clientServices from "../services/clientServices.js";
 
 export const getClients = async (req, res) => {
   try {
