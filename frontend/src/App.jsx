@@ -1,13 +1,15 @@
 import React from "react";
 import { useState } from "react";
 import "./App.css";
+import axios from "axios";
 import NavBar from "./components/Navbar";
 import ModalForm from "./components/ModalForm";
-import TableList from "./components/Tablelist";
+import TableList from "./components/TableList";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState("add");
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedRow, setSelectedRow] = useState(null);
 
   const handleOpenModal = (mode, row) => {
@@ -31,8 +33,15 @@ function App() {
   };
   return (
     <>
-      <NavBar onOpen={() => handleOpenModal("add", null)} />
-      <TableList onUpdate={handleOpenModal} onDelete={handleOpenModal} />
+      <NavBar
+        onOpen={() => handleOpenModal("add", null)}
+        onSearch={setSearchTerm}
+      />
+      <TableList
+        onUpdate={handleOpenModal}
+        onDelete={handleOpenModal}
+        searchTerm={searchTerm}
+      />
       <ModalForm
         isOpen={isOpen}
         onClose={handleCloseModal}

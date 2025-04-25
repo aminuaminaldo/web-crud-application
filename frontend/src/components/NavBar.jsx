@@ -1,6 +1,9 @@
 import React from "react";
 
-const NavBar = ({ onOpen }) => {
+const NavBar = ({ onOpen, onSearch }) => {
+  const handleSearch = (event) => {
+    onSearch(event.target.value);
+  };
   return (
     <div className="navbar bg-base-100 shadow-sm p-4">
       <div className="navbar-start">
@@ -8,9 +11,10 @@ const NavBar = ({ onOpen }) => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <input
-          type="text"
+          type="search"
           placeholder="Search"
           className="input input-bordered w-48 md:w-auto"
+          onChange={handleSearch}
         />
       </div>
       <div className="navbar-end flex gap-2">
