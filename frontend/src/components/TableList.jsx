@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"; // React from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const TableList = ({ onUpdate, onDelete, searchTerm }) => {
@@ -32,8 +32,13 @@ const TableList = ({ onUpdate, onDelete, searchTerm }) => {
   }, []);
 
   const filteredData = tableData.filter((client) => {
-    return client.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return (
+      client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      client.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      client.job.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   });
+
   return (
     <>
       {error && <div className="alert alert-error">{error.message}</div>}

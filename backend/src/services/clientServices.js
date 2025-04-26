@@ -7,11 +7,16 @@ export const getClients = async () => {
 
 export const createClient = async (client) => {
   const { name, email, job, rate, isactive } = client;
-  const result = await query(
-    "INSERT INTO clients_db (name, email, job, rate, isactive) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-    [name, email, job, rate, isactive]
-  );
-  return result.rows[0];
+  try {
+    const result = await query(
+      "INSERT INTO clients_db (name, email, job, rate, isactive) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [name, email, job, rate, isactive]
+    );
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error inserting client into database:", error);
+    throw new Error("Database error: Unable to create client");
+  }
 };
 
 export const updateClient = async (id, client) => {

@@ -1,6 +1,12 @@
 import { React, useState } from "react";
 
-export default function ModalForm({ isOpen, onClose, mode, onSubmit }) {
+export default function ModalForm({
+  isOpen,
+  onClose,
+  mode,
+  clientData,
+  onSubmit,
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [job, setJob] = useState("");
@@ -11,9 +17,21 @@ export default function ModalForm({ isOpen, onClose, mode, onSubmit }) {
     setStatus(e.target.value === "Active");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     onClose();
+    try {
+      const clientData = {
+        name,
+        email,
+        job,
+        rate: Number(rate),
+        isactive: status,
+      };
+      await onSubmit(clientData);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
   return (
     <>
@@ -80,11 +98,7 @@ export default function ModalForm({ isOpen, onClose, mode, onSubmit }) {
                 <option>Inactive</option>
               </select>
             </div>
-            <button
-              className="btn btn-success btn-sm float-end"
-              onClick={onSubmit}
-              type="submit"
-            >
+            <button className="btn btn-success btn-sm float-end" type="submit">
               {mode === "add" ? "Add Client" : "Save Changes"}
             </button>
           </form>

@@ -10,24 +10,37 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState("add");
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedRow, setSelectedRow] = useState(null);
+  const [clientData, setClientData] = useState(null);
 
   const handleOpenModal = (mode, row) => {
     setMode(mode);
-    setSelectedRow(row);
     setIsOpen(true);
   };
   const handleCloseModal = () => {
     setIsOpen(false);
-    setSelectedRow(null);
   };
-  const handleSubmit = (data) => {
+  const handleSubmit = async (newClientData) => {
+    const sanitizedClientData = {
+      name: newClientData.name,
+      email: newClientData.email,
+      job: newClientData.job,
+      rate: newClientData.rate,
+      isactive: newClientData.isactive,
+    };
+
     if (mode === "add") {
-      console.log("Adding new row", data);
-      // Add new row logic
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/clients",
+          sanitizedClientData
+        );
+        console.log("New client added:", response.data);
+      } catch (error) {
+        console.error("Error adding client:", error);
+      }
+      console.log("Adding new row", sanitizedClientData);
     } else if (mode === "edit") {
-      // Edit existing row logic
-      console.log("Editing row", data);
+      console.log("Editing row", sanitizedClientData);
     }
     handleCloseModal();
   };
@@ -46,6 +59,7 @@ function App() {
         isOpen={isOpen}
         onClose={handleCloseModal}
         mode={mode}
+        clientData={clientData}
         onSubmit={handleSubmit}
       />
     </>
