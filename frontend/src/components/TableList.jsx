@@ -39,6 +39,25 @@ const TableList = ({ onUpdate, onDelete, searchTerm }) => {
     );
   });
 
+  const handleDeleteClient = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this client?"
+    );
+    if (!confirmDelete) {
+      return;
+    }
+    await axios
+      .delete(`http://localhost:3000/api/clients/${id}`)
+      .then(() => {
+        setTableData((prevData) =>
+          prevData.filter((client) => client.id !== id)
+        );
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  };
+
   return (
     <>
       {error && <div className="alert alert-error">{error.message}</div>}
@@ -76,14 +95,14 @@ const TableList = ({ onUpdate, onDelete, searchTerm }) => {
                 <td className="space-x-2">
                   <button
                     // onClick={() => handleUpdate(client.id)}
-                    onClick={() => onUpdate(client.id)}
+                    onClick={() => onUpdate("edit", client)}
                     className="btn btn-sm btn-info"
                   >
                     Update
                   </button>
                   <button
                     // onClick={() => handleDelete(client.id)}
-                    onClick={() => onDelete(client.id)}
+                    onClick={() => handleDeleteClient(client.id)}
                     className="btn btn-sm btn-error"
                   >
                     Delete

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 
 export default function ModalForm({
   isOpen,
@@ -19,7 +19,6 @@ export default function ModalForm({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    onClose();
     try {
       const clientData = {
         name,
@@ -32,7 +31,23 @@ export default function ModalForm({
     } catch (error) {
       console.error("Error submitting form:", error);
     }
+    onClose();
   };
+  useEffect(() => {
+    if (mode === "edit" && clientData) {
+      setName(clientData.name);
+      setEmail(clientData.email);
+      setJob(clientData.job);
+      setRate(clientData.rate);
+      setStatus(clientData.isactive);
+    } else {
+      setName("");
+      setEmail("");
+      setJob("");
+      setRate("");
+      setStatus(false);
+    }
+  }, [mode, clientData]);
   return (
     <>
       <dialog id="my_modal_3" className="modal" open={isOpen}>

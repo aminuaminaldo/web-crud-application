@@ -12,9 +12,12 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [clientData, setClientData] = useState(null);
 
-  const handleOpenModal = (mode, row) => {
+  const handleOpenModal = (mode, client) => {
     setMode(mode);
     setIsOpen(true);
+    if (mode === "edit") {
+      setClientData(client);
+    }
   };
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -40,6 +43,15 @@ function App() {
       }
       console.log("Adding new row", sanitizedClientData);
     } else if (mode === "edit") {
+      try {
+        const response = await axios.put(
+          `http://localhost:3000/api/clients/${clientData.id}`,
+          sanitizedClientData
+        );
+        console.log("Client updated:", response.data);
+      } catch (error) {
+        console.error("Error updating client:", error);
+      }
       console.log("Editing row", sanitizedClientData);
     }
     handleCloseModal();
