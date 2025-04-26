@@ -4,7 +4,7 @@ This project is created for practicing web development.
 
 ## About the Project
 
-This is a web-based CRUD (Create, Read, Update, Delete) application. It consists of a backend built with Node.js and a frontend built with React.
+This is a web-based CRUD (Create, Read, Update, Delete) application. It consists of a backend built with Node.js and a frontend built with React. The application follows the PERN stack (PostgreSQL, Express, React.js, Node.js).
 
 ## How to Set Up and Run the Project
 
@@ -12,6 +12,7 @@ This is a web-based CRUD (Create, Read, Update, Delete) application. It consists
 
 - Ensure you have Node.js and npm installed on your system.
 - Install Git to clone the repository.
+- Install PostgreSQL to store the data.
 
 ### Steps to Set Up
 
@@ -60,7 +61,13 @@ This is a web-based CRUD (Create, Read, Update, Delete) application. It consists
 
 ## Screenshots
 
-### Frontend Screenshot
-
-Upload a screenshot of the frontend here.
-![Frontend Screenshot](frontend/public/TableList.png)
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <div style="flex: 1;">
+    <img src="frontend/public/TableList.png" alt="Frontend Screenshot" style="width: 100%;" />
+    <p style="text-align: center;">Table List View</p>
+  </div>
+  <div style="flex: 1;">
+    <img src="frontend/public/ModalForm.png" alt="Vite Logo Screenshot" style="width: 100%;" />
+    <p style="text-align: center;">Modal Form</p>
+  </div>
+</div>
