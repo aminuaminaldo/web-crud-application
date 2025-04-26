@@ -1,35 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
-const TableList = ({ onUpdate, onDelete, searchTerm }) => {
-  const [tableData, setTableData] = useState([]);
+const TableList = ({ onUpdate, searchTerm, tableData, setTableData }) => {
   const [error, setError] = useState(null);
-
-  const handleUpdate = (id) => {
-    // TODO: Implement update functionality
-    console.log("Update client with id:", id);
-  };
-
-  const handleDelete = (id) => {
-    // TODO: Implement delete functionality
-    console.log("Delete client with id:", id);
-  };
-
-  const handleToggleActive = (id) => {
-    // TODO: Implement toggle active functionality
-    console.log("Toggle active status for client with id:", id);
-  };
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/api/clients")
-      .then((response) => {
-        setTableData(response.data);
-      })
-      .catch((error) => {
-        setError(error);
-      });
-  }, []);
 
   const filteredData = tableData.filter((client) => {
     return (

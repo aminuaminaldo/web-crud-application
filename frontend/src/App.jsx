@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import NavBar from "./components/Navbar";
@@ -11,6 +11,18 @@ function App() {
   const [mode, setMode] = useState("add");
   const [searchTerm, setSearchTerm] = useState("");
   const [clientData, setClientData] = useState(null);
+  const [tableData, setTableData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/clients")
+      .then((response) => {
+        setTableData(response.data);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  }, []);
 
   const handleOpenModal = (mode, client) => {
     setMode(mode);
@@ -37,22 +49,26 @@ function App() {
           "http://localhost:3000/api/clients",
           sanitizedClientData
         );
+        setTableData((prevData) => [...prevData, response.data]);
         console.log("New client added:", response.data);
       } catch (error) {
         console.error("Error adding client:", error);
       }
-      console.log("Adding new row", sanitizedClientData);
     } else if (mode === "edit") {
       try {
         const response = await axios.put(
           `http://localhost:3000/api/clients/${clientData.id}`,
           sanitizedClientData
         );
+        setTableData((prevData) =>
+          prevData.map((client) =>
+            client.id === clientData.id ? response.data : client
+          )
+        );
         console.log("Client updated:", response.data);
       } catch (error) {
         console.error("Error updating client:", error);
       }
-      console.log("Editing row", sanitizedClientData);
     }
     handleCloseModal();
   };
@@ -64,8 +80,9 @@ function App() {
       />
       <TableList
         onUpdate={handleOpenModal}
-        onDelete={handleOpenModal}
         searchTerm={searchTerm}
+        tableData={tableData}
+        setTableData={setTableData}
       />
       <ModalForm
         isOpen={isOpen}
